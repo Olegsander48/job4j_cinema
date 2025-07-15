@@ -1,4 +1,4 @@
-package ru.job4j.job4j_cinema;
+package ru.job4j.cinema;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
