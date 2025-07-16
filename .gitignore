@@ -22,6 +22,8 @@ target/
 .gitattributes
 mvnw
 mvnw.cmd
+testdb.mv.db
+testdb.trace.db
 
 ### NetBeans ###
 /nbproject/private/
