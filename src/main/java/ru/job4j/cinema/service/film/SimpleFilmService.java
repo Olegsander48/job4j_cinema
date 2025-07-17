@@ -8,7 +8,6 @@ import ru.job4j.cinema.repository.genre.GenreRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SimpleFilmService implements FilmService {
@@ -25,8 +24,8 @@ public class SimpleFilmService implements FilmService {
         var films = filmRepository.findAll();
         List<Genre> genres = (List<Genre>) genreRepository.findAll();
         return films.stream()
-                .map(film -> new FilmDto(film, genres.get(film.getGenreId()).getName()))
-                .collect(Collectors.toList());
+                .map(film -> new FilmDto(film, genres.get(film.getGenreId() - 1).getName()))
+                .toList();
     }
 
     @Override

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <tbody>
+            <tr th:each="fileSession: ${sessions}">
+                <td>
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Название фильма:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${fileSession.filmName}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Название кинотеатра:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${fileSession.hallName}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Начало сеанса:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${fileSession.getFormattedStartTime()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Конец сеанса:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${fileSession.getFormattedEndTime()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Цена билета:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${fileSession.price} + ' руб'"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

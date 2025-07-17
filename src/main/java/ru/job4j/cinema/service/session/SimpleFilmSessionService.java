@@ -25,9 +25,9 @@ public class SimpleFilmSessionService implements FilmSessionService {
         return filmSessionRepository.findAll()
                 .stream()
                 .map(filmSession -> new FilmSessionDto(
-                        hallRepository.findById(filmSession.getHallId()).getName(),
                         filmRepository.findById(filmSession.getFilmId()).getName(),
-                                 filmSession))
+                        hallRepository.findById(filmSession.getHallId()).getName(),
+                        filmSession))
                 .toList();
     }
 

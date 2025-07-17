@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <tbody>
+            <tr th:each="film: ${films}">
+                <td>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <img th:src="@{/files/{fileId}(fileId=*{film.fileId})}" class="w-100" alt="No image">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Название:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.name}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Описание:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.description}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Год выхода:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.year}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Возрастное ограничение:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.minimalAge} + '+'"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Продолжительность:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.durationInMinutes} + ' мин'"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="form-label"><b>Категория:</b></label>
+                                </div>
+                                <div class="col-9">
+                                    <p th:text="${film.genre}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

@@ -18,7 +18,7 @@ public class Sql2oHallRepository implements HallRepository {
     public Collection<Hall> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM halls");
-            return query.executeAndFetch(Hall.class);
+            return query.setColumnMappings(Hall.COLUMN_MAPPING).executeAndFetch(Hall.class);
         }
     }
 
@@ -26,7 +26,7 @@ public class Sql2oHallRepository implements HallRepository {
     public Hall findById(int id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM halls WHERE id = :id");
-            return query.addParameter("id", id).executeAndFetchFirst(Hall.class);
+            return query.setColumnMappings(Hall.COLUMN_MAPPING).addParameter("id", id).executeAndFetchFirst(Hall.class);
         }
     }
 }

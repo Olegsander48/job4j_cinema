@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div class="container">
+    <h4>Добро пожаловать на лучший сайт покупки билетов.</h4>
+    <ul>
+        <li><a th:href="@{/sessions}">Расписание</a></li>
+        <li><a th:href="@{/films}">Кинотека</a></li>
+        <li><a th:href="@{/tickets/buy}">Купить билет</a></li>
+    </ul>
+</div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

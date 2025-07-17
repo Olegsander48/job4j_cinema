@@ -5,10 +5,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hall {
+    public static final Map<String, String> COLUMN_MAPPING = Map.of(
+            "id", "id",
+            "name", "name",
+            "row_count", "rowCount",
+            "place_count", "placeCount",
+            "genre_id", "description"
+    );
+
     @EqualsAndHashCode.Exclude
     private int id;
     private String name;
