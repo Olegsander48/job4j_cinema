@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.File;
 
+import java.util.Optional;
+
 @Repository
 public class Sql2oFileRepository implements FileRepository {
     private final Sql2o sql2o;
@@ -13,10 +15,11 @@ public class Sql2oFileRepository implements FileRepository {
     }
 
     @Override
-    public File findById(int id) {
+    public Optional<File> findById(int id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM files WHERE id = :id");
-            return query.addParameter("id", id).executeAndFetchFirst(File.class);
+            var optionalFile = query.addParameter("id", id).executeAndFetchFirst(File.class);
+            return Optional.ofNullable(optionalFile);
         }
     }
 }
