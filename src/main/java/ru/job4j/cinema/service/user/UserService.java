@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> save(User user);
 
-    User findByEmailAndPassword(String email, String password);
+    Optional<User> findByEmailAndPassword(String email, String password);
 }

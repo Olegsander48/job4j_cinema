@@ -23,7 +23,8 @@ public class Ticket {
     private int placeNumber;
     private int userId;
 
-    public Ticket(int sessionId) {
+    public Ticket(int sessionId, int userId) {
         this.sessionId = sessionId;
+        this.userId = userId;
     }
 }

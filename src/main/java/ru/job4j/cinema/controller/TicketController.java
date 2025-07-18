@@ -1,9 +1,11 @@
 package ru.job4j.cinema.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.session.FilmSessionService;
 import ru.job4j.cinema.service.ticket.TicketService;
 
@@ -19,10 +21,11 @@ public class TicketController {
     }
 
     @GetMapping("/buy/{id}")
-    public String getBuyPage(Model model, @PathVariable int id) {
+    public String getBuyPage(Model model, @PathVariable int id, HttpSession session) {
         var filmSessionDto = filmSessionService.findById(id);
         model.addAttribute("filmSessionDto", filmSessionDto);
-        model.addAttribute("ticket", new Ticket(id));
+        model.addAttribute("ticket", new Ticket(id,
+                ((User) session.getAttribute("user")).getId()));
         return "tickets/buy";
     }
 

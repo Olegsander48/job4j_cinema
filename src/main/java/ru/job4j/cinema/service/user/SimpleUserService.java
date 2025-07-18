@@ -21,7 +21,7 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
-    public User findByEmailAndPassword(String email, String password) {
+    public Optional<User> findByEmailAndPassword(String email, String password) {
         if (email == null || password == null) {
             throw new IllegalArgumentException("Email and password cannot be null");
         }
@@ -29,6 +29,6 @@ public class SimpleUserService implements UserService {
         if (userOptional.isEmpty()) {
             throw new NoSuchElementException("User with email: " + email + " and password: " + password + " not found");
         }
-        return userOptional.get();
+        return userOptional;
     }
 }
