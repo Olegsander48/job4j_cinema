@@ -8,7 +8,7 @@ public interface TicketRepository {
 
     Optional<Ticket> findById(int id);
 
-    Optional<Ticket> findByPlaceNumberAndRowNumber(int placeNumber, int rowNumber);
+    Optional<Ticket> findByPlaceNumberRowNumberAndSessionId(int placeNumber, int rowNumber, int sessionId);
 
     boolean deleteById(int id);
 }

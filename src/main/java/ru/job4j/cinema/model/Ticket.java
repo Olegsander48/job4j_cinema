@@ -22,4 +22,8 @@ public class Ticket {
     private int rowNumber;
     private int placeNumber;
     private int userId;
+
+    public Ticket(int sessionId) {
+        this.sessionId = sessionId;
+    }
 }

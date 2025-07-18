@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div class="container">
+    <form class="mt-3" th:action="@{/tickets/buy}" method="post" th:object="${ticket}" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{sessionId}">
+        <input type="hidden" th:field="*{userId}">
+        <div class="row mb-3">
+            <div class="col-7">
+                <iframe th:src="${filmSessionDto.mapLink}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="col-5">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="form-label"><b>Фильм:</b></label>
+                    </div>
+                    <div class="col-9">
+                        <p th:text="${filmSessionDto.filmName}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label class="form-label"><b>Кинотеатр:</b></label>
+                    </div>
+                    <div class="col-9">
+                        <p th:text="${filmSessionDto.hallName}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label class="form-label"><b>Начало сеанса:</b></label>
+                    </div>
+                    <div class="col-9">
+                        <p th:text="${filmSessionDto.getFormattedStartTime()}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label class="form-label"><b>Конец сеанса:</b></label>
+                    </div>
+                    <div class="col-9">
+                        <p th:text="${filmSessionDto.getFormattedEndTime()}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label class="form-label"><b>Цена билета:</b></label>
+                    </div>
+                    <div class="col-9">
+                        <p th:text="${filmSessionDto.price} + ' руб'"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-5">
+                        <label class="form-label"><b>Выберите ряд:</b></label>
+                    </div>
+                    <div class="col-6">
+                        <select class="custom-select" th:field="*{rowNumber}" aria-label="Choose row">
+                            <th:block th:each="i : ${#numbers.sequence(1, filmSessionDto.rowCount)}">
+                                <option th:value="${i}" th:text="${i}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-5">
+                        <label class="form-label"><b>Выберите место:</b></label>
+                    </div>
+                    <div class="col-6">
+                        <select class="custom-select" th:field="*{placeNumber}" aria-label="Choose place">
+                            <th:block th:each="i : ${#numbers.sequence(1, filmSessionDto.placeCount)}">
+                                <option th:value="${i}" th:text="${i}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-6"></div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-primary w-100"
+                                type="submit">Оплатить</button></div>
+                    <div class="col-6"><a class="btn btn-danger w-100"
+                                          th:href="@{/sessions}">Отмена</a></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

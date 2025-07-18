@@ -26,7 +26,7 @@ public class SimpleFilmSessionService implements FilmSessionService {
                 .stream()
                 .map(filmSession -> new FilmSessionDto(
                         filmRepository.findById(filmSession.getFilmId()).getName(),
-                        hallRepository.findById(filmSession.getHallId()).getName(),
+                        hallRepository.findById(filmSession.getHallId()),
                         filmSession))
                 .toList();
     }
@@ -36,7 +36,7 @@ public class SimpleFilmSessionService implements FilmSessionService {
         var filmSession = filmSessionRepository.findById(id);
         return new FilmSessionDto(
                 filmRepository.findById(filmSession.getFilmId()).getName(),
-                hallRepository.findById(filmSession.getHallId()).getName(),
+                hallRepository.findById(filmSession.getHallId()),
                 filmSession);
     }
 }

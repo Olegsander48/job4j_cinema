@@ -4,11 +4,19 @@
 <body>
 <div class="container">
     <h4>Добро пожаловать на лучший сайт покупки билетов.</h4>
-    <ul>
-        <li><a th:href="@{/sessions}">Расписание</a></li>
-        <li><a th:href="@{/films}">Кинотека</a></li>
-        <li><a th:href="@{/tickets/buy}">Купить билет</a></li>
-    </ul>
+    <div class="row">
+        <div class="col-6">
+            <p></p>
+            <ul class="list-group">
+                <li class="list-group-item">Переходите на страницу <a th:href="@{/sessions}">расписание</a> чтобы просмотреть сессии в кинотеатрах, узнать цену и приобрести билет</li>
+                <li class="list-group-item">Предлагаем просмотреть <a th:href="@{/films}">доступные фильмы</a> к просмотру</li>
+                <li class="list-group-item">Купить любой <a th:href="@{/tickets/buy/5}">билет</a></li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1wbgwnV-ygsWzJOrvt8fEMB_HVnyy240&ehbc=2E312F&noprof=1" width="600" height="250"></iframe>
+        </div>
+    </div>
 </div>
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>

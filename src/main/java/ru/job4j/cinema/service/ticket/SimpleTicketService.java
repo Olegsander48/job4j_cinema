@@ -17,17 +17,21 @@ public class SimpleTicketService implements TicketService {
 
     @Override
     public Optional<Ticket> save(Ticket ticket) {
+        var ticketOptional = ticketRepository.findByPlaceNumberRowNumberAndSessionId(
+                ticket.getPlaceNumber(),
+                ticket.getRowNumber(),
+                ticket.getSessionId());
+        if (ticketOptional.isPresent()) {
+            throw new IllegalArgumentException("Ticket already exists");
+        }
         return ticketRepository.save(ticket);
     }
 
     @Override
     public Ticket findById(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("Id cannot be negative");
-        }
         var ticketOptional = ticketRepository.findById(id);
         if (ticketOptional.isEmpty()) {
-            throw new NoSuchElementException("Ticket with id " + id + " not found");
+            throw new NoSuchElementException("Ticket with id " + id + " already exists");
         }
         return ticketOptional.get();
     }

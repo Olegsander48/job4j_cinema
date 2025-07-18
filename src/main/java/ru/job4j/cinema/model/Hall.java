@@ -16,7 +16,8 @@ public class Hall {
             "name", "name",
             "row_count", "rowCount",
             "place_count", "placeCount",
-            "genre_id", "description"
+            "genre_id", "description",
+            "map_link", "mapLink"
     );
 
     @EqualsAndHashCode.Exclude
@@ -25,4 +26,6 @@ public class Hall {
     private int rowCount;
     private int placeCount;
     private String description;
+    @EqualsAndHashCode.Exclude
+    private String mapLink;
 }

@@ -26,7 +26,7 @@ public class Sql2oFilmSessionRepository implements FilmSessionRepository {
     public FilmSession findById(int id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM film_sessions WHERE id = :id");
-            return query.addParameter("id", id).executeAndFetchFirst(FilmSession.class);
+            return query.setColumnMappings(FilmSession.COLUMN_MAPPING).addParameter("id", id).executeAndFetchFirst(FilmSession.class);
         }
     }
 }

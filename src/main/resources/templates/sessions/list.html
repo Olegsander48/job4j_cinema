@@ -9,10 +9,13 @@
             <tr th:each="fileSession: ${sessions}">
                 <td>
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-5">
+                            <iframe th:src="${fileSession.mapLink}" width="400" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="col-7">
                             <div class="row">
                                 <div class="col-3">
-                                    <label class="form-label"><b>Название фильма:</b></label>
+                                    <label class="form-label"><b>Фильм:</b></label>
                                 </div>
                                 <div class="col-9">
                                     <p th:text="${fileSession.filmName}"></p>
@@ -20,7 +23,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-3">
-                                    <label class="form-label"><b>Название кинотеатра:</b></label>
+                                    <label class="form-label"><b>Кинотеатр:</b></label>
                                 </div>
                                 <div class="col-9">
                                     <p th:text="${fileSession.hallName}"></p>
@@ -50,7 +53,11 @@
                                     <p th:text="${fileSession.price} + ' руб'"></p>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-6">
+                                    <a th:href="@{/tickets/buy/{sessionId}(sessionId=${fileSession.getId()})}" > <button type="button" class="btn btn-warning">Купить билет</button> </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </td>

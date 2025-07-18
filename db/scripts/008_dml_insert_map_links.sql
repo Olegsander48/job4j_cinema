@@ -1,0 +1,21 @@
+UPDATE halls
+SET map_link = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75184.58640207583!2d27.554578251826477!3d53.92253478319576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcedcc4051995%3A0xa3097f1f0e1a2b80!2sMooon%20-%20cinema%20space%20in%20Dana%20Mall!5e0!3m2!1sen!2sby!4v1752755609278!5m2!1sen!2sby'
+WHERE id = 1;
+
+UPDATE halls
+SET map_link = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2348.6546079821187!2d27.485160677160973!3d53.9378798302988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbc50459273deb%3A0x1b1b85211faceb09!2z0JrQuNC90L7RgtC10LDRgtGAIFNpbHZlciBTY3JlZW4gQXJlbmFDaXR5!5e0!3m2!1sru!2sby!4v1752759585411!5m2!1sru!2sby'
+WHERE id = 2;
+
+UPDATE halls
+SET map_link = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37601.603317441164!2d27.46522321313476!3d53.91219520633149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfee1c7cf7d3%3A0x3261f8ef310ebb8d!2zU0tZTElORSBDaW5lbWEg0LIg0KLQoNCmIEdhbGlsZW8!5e0!3m2!1sen!2sby!4v1752758861408!5m2!1sen!2sby'
+WHERE id = 3;
+
+UPDATE halls
+SET map_link = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2349.5423936159864!2d27.594248177160313!3d53.922107131487515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf085b31fed9%3A0xf923f32f6c5b6ac7!2sOctober!5e0!3m2!1sen!2sby!4v1752758913592!5m2!1sen!2sby'
+WHERE id = 4;
+
+
+
+
+
+
