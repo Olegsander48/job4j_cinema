@@ -1,6 +1,8 @@
 package ru.job4j.cinema.repository.ticket;
 
 import ru.job4j.cinema.model.Ticket;
+
+import java.util.Collection;
 import java.util.Optional;
 
 public interface TicketRepository {
@@ -11,4 +13,6 @@ public interface TicketRepository {
     Optional<Ticket> findByPlaceNumberRowNumberAndSessionId(int placeNumber, int rowNumber, int sessionId);
 
     boolean deleteById(int id);
+
+    Collection<Ticket> findAll();
 }

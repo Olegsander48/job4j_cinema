@@ -7,6 +7,7 @@ import ru.job4j.cinema.repository.hall.HallRepository;
 import ru.job4j.cinema.repository.session.FilmSessionRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class SimpleFilmSessionService implements FilmSessionService {
@@ -32,11 +33,11 @@ public class SimpleFilmSessionService implements FilmSessionService {
     }
 
     @Override
-    public FilmSessionDto findById(int id) {
+    public Optional<FilmSessionDto> findById(int id) {
         var filmSession = filmSessionRepository.findById(id);
-        return new FilmSessionDto(
-                filmRepository.findById(filmSession.getFilmId()).getName(),
-                hallRepository.findById(filmSession.getHallId()),
-                filmSession);
+        return filmSession.map(session -> new FilmSessionDto(
+                filmRepository.findById(session.getFilmId()).getName(),
+                hallRepository.findById(session.getHallId()),
+                session));
     }
 }

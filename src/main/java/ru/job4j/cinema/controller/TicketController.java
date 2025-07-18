@@ -23,6 +23,10 @@ public class TicketController {
     @GetMapping("/buy/{id}")
     public String getBuyPage(Model model, @PathVariable int id, HttpSession session) {
         var filmSessionDto = filmSessionService.findById(id);
+        if (filmSessionDto.isEmpty()) {
+            model.addAttribute("message", "Такой страницы не существует");
+            return "fragments/errors/404";
+        }
         model.addAttribute("filmSessionDto", filmSessionDto);
         model.addAttribute("ticket", new Ticket(id,
                 ((User) session.getAttribute("user")).getId()));

@@ -3,7 +3,7 @@ package ru.job4j.cinema.repository.ticket;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Ticket;
-
+import java.util.Collection;
 import java.util.Optional;
 
 @Repository
@@ -64,6 +64,14 @@ public class Sql2oTicketRepository implements TicketRepository {
             var query = connection.createQuery("DELETE FROM tickets WHERE id = :id");
             query.addParameter("id", id);
             return query.executeUpdate().getResult() > 0;
+        }
+    }
+
+    @Override
+    public Collection<Ticket> findAll() {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("SELECT * FROM tickets");
+            return query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetch(Ticket.class);
         }
     }
 }
