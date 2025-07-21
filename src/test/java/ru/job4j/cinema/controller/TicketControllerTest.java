@@ -52,7 +52,7 @@ class TicketControllerTest {
         var actualTicket = model.getAttribute("ticket");
 
         assertThat(view).isEqualTo("tickets/buy");
-        assertThat(actualFilmSessionDto).isEqualTo(optionalFilmSessionDto);
+        assertThat(actualFilmSessionDto).isEqualTo(filmSessionDto);
         assertThat(actualTicket).isEqualTo(ticket);
     }
 

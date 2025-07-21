@@ -27,7 +27,7 @@ public class TicketController {
             model.addAttribute("message", "Такой страницы не существует");
             return "fragments/errors/404";
         }
-        model.addAttribute("filmSessionDto", filmSessionDto);
+        model.addAttribute("filmSessionDto", filmSessionDto.get());
         model.addAttribute("ticket", new Ticket(id,
                 ((User) session.getAttribute("user")).getId()));
         return "tickets/buy";
