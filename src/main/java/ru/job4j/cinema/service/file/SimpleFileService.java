@@ -1,20 +1,22 @@
 package ru.job4j.cinema.service.file;
 
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FileDto;
 import ru.job4j.cinema.repository.file.FileRepository;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
 import java.util.Optional;
 
 @Service
 public class SimpleFileService implements FileService {
     private final FileRepository fileRepository;
+    private final ResourceLoader resourceLoader;
 
-    public SimpleFileService(FileRepository sql2oFileRepository) {
+    public SimpleFileService(FileRepository sql2oFileRepository, ResourceLoader resourceLoader) {
         this.fileRepository = sql2oFileRepository;
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
@@ -29,9 +31,12 @@ public class SimpleFileService implements FileService {
 
     private byte[] readFileAsBytes(String path) {
         try {
-            return Files.readAllBytes(Path.of(path));
+            var resource = resourceLoader.getResource("classpath:static/" + path);
+            try (InputStream in = resource.getInputStream()) {
+                return in.readAllBytes();
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading file: " + path, e);
         }
     }
 }
