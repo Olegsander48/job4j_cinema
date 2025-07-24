@@ -7,15 +7,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.sql2o.Sql2oException;
-import ru.job4j.cinema.configuration.DatasourceConfiguration;
+import ru.job4j.cinema.configuration.SpringJdbcConfig;
 import ru.job4j.cinema.model.Ticket;
 
 import java.util.List;
 import java.util.Properties;
 
-class Sql2oTicketRepositoryTest {
-    private static Sql2oTicketRepository sql2oTicketRepository;
+class JdbcTemplateTicketRepositoryTest {
+    private static JdbcTemplateTicketRepository jdbcTemplateTicketRepository;
 
     @BeforeAll
     static void initRepositories() throws Exception {
@@ -27,18 +26,18 @@ class Sql2oTicketRepositoryTest {
         var username = properties.getProperty("datasource.username");
         var password = properties.getProperty("datasource.password");
 
-        var configuration = new DatasourceConfiguration();
-        var datasource = configuration.connectionPool(url, username, password);
-        var sql2o = configuration.databaseClient(datasource);
+        var configuration = new SpringJdbcConfig();
+        var datasource = configuration.postgresDataSource(url, username, password);
+        var jdbcTemplate = configuration.databaseClient(datasource);
 
-        sql2oTicketRepository = new Sql2oTicketRepository(sql2o);
+        jdbcTemplateTicketRepository = new JdbcTemplateTicketRepository(jdbcTemplate);
     }
 
     @AfterEach
     void clearTickets() {
-        var tickets = sql2oTicketRepository.findAll();
+        var tickets = jdbcTemplateTicketRepository.findAll();
         for (var ticket : tickets) {
-            sql2oTicketRepository.deleteById(ticket.getId());
+            jdbcTemplateTicketRepository.deleteById(ticket.getId());
         }
     }
 
@@ -47,8 +46,8 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenSaveThenGetSame() {
-        var ticket = sql2oTicketRepository.save(new Ticket(0, 1, 2, 2, 1));
-        var savedTicket = sql2oTicketRepository.findById(ticket.get().getId());
+        var ticket = jdbcTemplateTicketRepository.save(new Ticket(0, 1, 2, 2, 1));
+        var savedTicket = jdbcTemplateTicketRepository.findById(ticket.get().getId());
         assertThat(savedTicket).usingRecursiveComparison().isEqualTo(ticket);
     }
 
@@ -57,10 +56,10 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenSaveSeveralThenGetAll() {
-        var ticket1 = sql2oTicketRepository.save(new Ticket(1, 1, 2, 2, 1)).get();
-        var ticket2 = sql2oTicketRepository.save(new Ticket(2, 1, 3, 2, 1)).get();
-        var ticket3 = sql2oTicketRepository.save(new Ticket(3, 1, 4, 2, 1)).get();
-        var result = sql2oTicketRepository.findAll();
+        var ticket1 = jdbcTemplateTicketRepository.save(new Ticket(1, 1, 2, 2, 1)).get();
+        var ticket2 = jdbcTemplateTicketRepository.save(new Ticket(2, 1, 3, 2, 1)).get();
+        var ticket3 = jdbcTemplateTicketRepository.save(new Ticket(3, 1, 4, 2, 1)).get();
+        var result = jdbcTemplateTicketRepository.findAll();
         assertThat(result).isEqualTo(List.of(ticket1, ticket2, ticket3));
     }
 
@@ -69,9 +68,9 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenSaveSameTicketThenGetIndexViolationException() {
-        sql2oTicketRepository.save(new Ticket(1, 1, 2, 2, 1));
-        assertThatThrownBy(() -> sql2oTicketRepository.save(new Ticket(2, 1, 2, 2, 1)).get())
-                .isInstanceOf(Sql2oException.class)
+        jdbcTemplateTicketRepository.save(new Ticket(1, 1, 2, 2, 1));
+        assertThatThrownBy(() -> jdbcTemplateTicketRepository.save(new Ticket(2, 1, 2, 2, 1)).get())
+                .isInstanceOf(Exception.class)
                 .hasMessageContaining("Unique index or primary key violation");
     }
 
@@ -80,8 +79,8 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenDontSaveThenNothingFound() {
-        assertThat(sql2oTicketRepository.findAll()).isEqualTo(emptyList());
-        assertThat(sql2oTicketRepository.findById(0)).isEmpty();
+        assertThat(jdbcTemplateTicketRepository.findAll()).isEqualTo(emptyList());
+        assertThat(jdbcTemplateTicketRepository.findById(0)).isEmpty();
     }
 
     /**
@@ -89,9 +88,9 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenDeleteThenGetEmptyOptional() {
-        var ticket = sql2oTicketRepository.save(new Ticket(0, 1, 2, 2, 1));
-        var isDeleted = sql2oTicketRepository.deleteById(ticket.get().getId());
-        var savedTicket = sql2oTicketRepository.findById(ticket.get().getId());
+        var ticket = jdbcTemplateTicketRepository.save(new Ticket(0, 1, 2, 2, 1));
+        var isDeleted = jdbcTemplateTicketRepository.deleteById(ticket.get().getId());
+        var savedTicket = jdbcTemplateTicketRepository.findById(ticket.get().getId());
         assertThat(isDeleted).isTrue();
         assertThat(savedTicket).isEmpty();
     }
@@ -101,7 +100,7 @@ class Sql2oTicketRepositoryTest {
      */
     @Test
     void whenDeleteByInvalidIdThenGetFalse() {
-        assertThat(sql2oTicketRepository.deleteById(0)).isFalse();
+        assertThat(jdbcTemplateTicketRepository.deleteById(0)).isFalse();
     }
 
     /**
@@ -111,11 +110,12 @@ class Sql2oTicketRepositoryTest {
     @Test
     void whenFindByPlaceNumberRowNumberAndSessionIdThenGetTicket() {
         var ticket = new Ticket(0, 1, 2, 2, 1);
-        sql2oTicketRepository.save(ticket);
-        var savedTicket = sql2oTicketRepository.findByPlaceNumberRowNumberAndSessionId(
+        jdbcTemplateTicketRepository.save(ticket);
+        var savedTicket = jdbcTemplateTicketRepository.findByPlaceNumberRowNumberAndSessionId(
                 ticket.getPlaceNumber(),
                 ticket.getRowNumber(),
                 ticket.getSessionId());
         assertThat(savedTicket).contains(ticket);
     }
+
 }

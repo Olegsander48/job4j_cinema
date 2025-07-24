@@ -37,7 +37,7 @@ public class TicketController {
     public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
         try {
             ticketService.save(ticket);
-            model.addAttribute("message", "ряд: " + ticket.getRowNumber() + ", место: " + ticket.getPlaceNumber());
+            model.addAttribute("ticket", ticket);
             return "fragments/confirmation";
         } catch (IllegalArgumentException exception) {
             model.addAttribute("message", "Билет на данный ряд и место уже куплены. Поробуйте выбрать другое место");

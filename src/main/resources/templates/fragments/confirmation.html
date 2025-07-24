@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <h3 class="mt-3">Билет успешно приобретен!</h3>
-    <p class="text-success" th:text="'Вы успешно приобрели билет: ' + ${message}"></p>
+    <p class="text-success" th:text="'Вы успешно приобрели билет ряд: ' + ${ticket.rowNumber} + ', место: ' + ${ticket.placeNumber}"></p>
 </div>
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>

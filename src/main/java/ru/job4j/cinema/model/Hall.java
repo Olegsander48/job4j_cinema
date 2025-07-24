@@ -16,7 +16,7 @@ public class Hall {
             "name", "name",
             "row_count", "rowCount",
             "place_count", "placeCount",
-            "genre_id", "description",
+            "description", "description",
             "map_link", "mapLink"
     );
 

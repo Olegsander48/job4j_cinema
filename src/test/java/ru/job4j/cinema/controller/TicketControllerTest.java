@@ -83,11 +83,9 @@ class TicketControllerTest {
 
         var model = new ConcurrentModel();
         var view = ticketController.buyTicket(ticket, model);
-        var actualMessage = model.getAttribute("message");
         var actualTicket = ticketArgumentCaptor.getValue();
 
         assertThat(view).isEqualTo("fragments/confirmation");
-        assertThat(actualMessage).isEqualTo("ряд: 5, место: 5");
         assertThat(actualTicket).isEqualTo(ticket);
     }
 
