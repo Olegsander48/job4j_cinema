@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository.user;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.User;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Primary
 public class JdbcTemplateUserRepository implements UserRepository {
     private final JdbcTemplate jdbcTemplate;
 
@@ -30,7 +31,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         int rowsAffected = jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, user.getFullName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());

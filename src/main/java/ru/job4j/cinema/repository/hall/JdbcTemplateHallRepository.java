@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository.hall;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
+@Primary
 public class JdbcTemplateHallRepository implements HallRepository {
     private JdbcTemplate jdbcTemplate;
 

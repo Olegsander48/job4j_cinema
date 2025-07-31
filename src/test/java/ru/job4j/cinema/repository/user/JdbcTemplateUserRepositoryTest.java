@@ -29,7 +29,7 @@ class JdbcTemplateUserRepositoryTest {
 
         var configuration = new SpringJdbcConfig();
         var datasource = configuration.postgresDataSource(url, username, password);
-        var client = configuration.databaseClient(datasource);
+        var client = configuration.jdbcDatabaseClient(datasource);
 
         jdbcTemplateUserRepository = new JdbcTemplateUserRepository(client);
     }

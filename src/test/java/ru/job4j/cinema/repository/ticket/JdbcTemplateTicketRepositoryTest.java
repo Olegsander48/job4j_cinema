@@ -28,7 +28,7 @@ class JdbcTemplateTicketRepositoryTest {
 
         var configuration = new SpringJdbcConfig();
         var datasource = configuration.postgresDataSource(url, username, password);
-        var jdbcTemplate = configuration.databaseClient(datasource);
+        var jdbcTemplate = configuration.jdbcDatabaseClient(datasource);
 
         jdbcTemplateTicketRepository = new JdbcTemplateTicketRepository(jdbcTemplate);
     }
